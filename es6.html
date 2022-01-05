@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+</body>
+<script>
+//     function Point(x, y) {
+//   this.x = x;
+//   this.y = y;
+// }
+
+// Point.prototype.toString = function () {
+//   return '(' + this.x + ', ' + this.y + ')';
+// };
+
+// var p = new Point(1, 2);
+// console.log(p)
+
+// -------------------------------------
+
+// class Point {
+//     say(data, data2) {
+//         console.log('第一个是：'+data+','+'第二个是：'+ data2)
+//     }
+// }
+// const sb = new Point()
+// sb.say('dema', 'zhaoxin')
+// console.log(sb.say()
+
+// -------------------------------------
+
+// class Polygon {
+//   constructor(height, width) {
+//     this.name = 'Rectangle';
+//     this.height = height;
+//     this.width = width;
+//   }
+//   sayName() {
+//     console.log('Hi, I am a ', this.name + '.');
+//   }
+//   get area() {
+//     return this.height * this.width;
+//   }
+//   set area(value) {
+//     this._area = value;
+//   }
+// }
+// const sb = new Polygon()
+// console.log(sb)
+// console.log(sb.height)
+
+// -------------------------------------
+
+// console.log(sb.area(2, 3))
+// class Square extends Polygon {
+//   constructor(length) {
+//     this.height; // ReferenceError，super 需要先被调用！
+
+//     // 这里，它调用父类的构造函数的,
+//     // 作为Polygon 的 height, width
+//     super(length, length);
+
+//     // 注意: 在派生的类中, 在你可以使用'this'之前, 必须先调用super()。
+//     // 忽略这, 这将导致引用错误。
+//     this.name = 'Square';
+//   }
+// }
+
+// -------------------------------------
+
+// function add(a) {
+//   console.log(JSON.stringify(a))
+// }
+// add({
+//   name: 'cjh',
+//   length: 20
+// })
+
+//---------------------------------
+
+// class A {
+//   constructor(x, y) {
+//    this.x = x
+//    this.y = y
+//   }
+//   toString() {
+//     return this.x + '' + this.y + '' + this.z
+//   }
+// }
+// class B extends A {
+//   constructor(x, y, z) {
+//     super(x, y)
+//     this.z = z
+//   }
+// }
+
+// const bb = new B(1, 2, 3)
+// console.log(bb)
+// console.log(bb.toString())
+
+//--------------------------------
+// class Point {
+// }
+
+// class ColorPoint extends Point {
+//   // constructor(x, y, color) {
+//   //   super(x, y); // 调用父类的constructor(x, y)
+//   //   this.color = color;
+//   // }
+
+//   // toString() {
+//   //   return this.color + ' ' + super.toString(); // 调用父类的toString()
+//   // }
+// }
+// const color = new ColorPoint()
+// console.log(color)
+// // console.log(color.toString())
+
+
+// function sum(n) {
+//   if (n == 1) return 1
+//   return sum(n - 1) + n
+// }
+
+// console.log(sum(100))
+
+
+
+// function fib(n) {
+//   if (n === 1 || n === 2) return n - 1
+//   return fib(n - 1) + fib(n - 2)
+// }
+// console.log(fib(4))
+
+
+
+
+
+// const arr1 = []
+// const obj1 = {}
+// console.log(arr1)
+// console.log(obj1)
+
+
+class BaseModel {
+    constructor(data, message) {
+        if(typeof data === 'string') {
+            this.message = data
+            data = null
+            message = null
+            // this.data = null
+            // this.message = null
+        }
+        if(data) {
+            this.data = data
+        }
+        if(message) {
+            this.message = message
+        }
+    }
+}
+
+class SuccessModel extends BaseModel {
+    constructor(data, message) {
+        super(data, message)
+        this.errno = 0
+    }
+}
+
+class ErrorModel extends BaseModel {
+    constructor(data, message) {
+        super(data, message) 
+        this.errno = -1
+    }
+}
+
+let obj = {
+  id: 1,
+  name: 'cjh',
+  age: 18
+}
+console.log(new SuccessModel('123', obj))
+</script>
+</html>
