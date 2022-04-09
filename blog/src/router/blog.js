@@ -5,10 +5,10 @@ const blogRouter = (req, res) => {
     const url = req.url
     const path = url.split('?')[0]
     if(method == 'GET' && path == '/api/blog/list') {
-        const author = req.query.author
-        const keyword = req.query.keyword
+        const author = req.query.author || ''
+        const keyword = req.query.keyword || ''
         const listData = getList(author, keyword)
-        return new SuccessModel(listData)
+        return new SuccessModel(listData, '调用成功')
     }
     if(method == 'GET' && path == '/api/blog/detail') {
         return {

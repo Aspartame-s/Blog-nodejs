@@ -145,10 +145,24 @@
 // const obj1 = {}
 // console.log(arr1)
 // console.log(obj1)
-
+// var a = 'window'
+// var obj = {
+// 	 a: 'inner',
+//   	 yyy: function() {
+//         this.a = 'sskks'
+//      	say = () => {
+//   			console.log(this.a)
+// 		}
+//         return say
+//      },
+  	 
+// }
+// var fff = obj.yyy()
+// fff()
 
 class BaseModel {
     constructor(data, message) {
+        this.data = 'calss'
         if(typeof data === 'string') {
             this.message = data
             data = null
@@ -164,26 +178,33 @@ class BaseModel {
         }
     }
 }
-
+var clas = new BaseModel()
 class SuccessModel extends BaseModel {
     constructor(data, message) {
         super(data, message)
         this.errno = 0
+        this.data = 'sb'
+        console.log(this)
+    }
+    getInfo = () => {
+        console.log(this)
     }
 }
+var fff = new SuccessModel()
+fff.getInfo()
+// console.log(fff)
+// class ErrorModel extends BaseModel {
+//     constructor(data, message) {
+//         super(data, message) 
+//         this.errno = -1
+//     }
+// }
 
-class ErrorModel extends BaseModel {
-    constructor(data, message) {
-        super(data, message) 
-        this.errno = -1
-    }
-}
-
-let obj = {
-  id: 1,
-  name: 'cjh',
-  age: 18
-}
-console.log(new SuccessModel('123', obj))
+// let obj = {
+//   id: 1,
+//   name: 'cjh',
+//   age: 18
+// }
+// console.log(new SuccessModel('123', obj))
 </script>
 </html>

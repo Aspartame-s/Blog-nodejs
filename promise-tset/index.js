@@ -1,3 +1,4 @@
+
 const fs = require('fs')
 const path = require('path')
 // function getFileContent(fileName, callback) {
@@ -28,7 +29,7 @@ function getFileContent(fileName) {
         const fullFileName = path.resolve(__dirname, 'files', fileName)
         fs.readFile(fullFileName, (err, data) => {
             if(err) {
-                reject.error(err)
+                reject(err)
                 return
             }
             reslove(
@@ -45,3 +46,4 @@ getFileContent('a.json').then(aData => {
 }).then(bData => {
     console.log(bData)
 })
+// --------------------

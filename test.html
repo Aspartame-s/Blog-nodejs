@@ -1,56 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+
 <body>
-    
-</body>
-<script>
-    var transObject = function(tableData, keys) {
-        let hashTable = {}, res = []
-        for(let i = 0; i < tableData.length; i++) {
-            if(!hashTable[tableData[i][keys[0]]]) {
-                let len = res.push({
-                    value: tableData[i][keys[0]],
-                    children: []
-                })
-                hashTable[tableData[i][keys[0]]] = {$$pos: len - 1}
-            }
-            if(!hashTable[tableData[i][keys[0]]][tableData[i][keys[1]]]) {
-                let len = res[hashTable[tableData[i][keys[0]]].$$pos].children.push({
-                    value: tableData[i][keys[1]],
-                    children: []
-                })
-                hashTable[tableData[i][keys[0]]][tableData[i][keys[1]]] = {$$pos: len - 1}
-            }
-            res[hashTable[tableData[i][keys[0]]].$$pos].children[hashTable[tableData[i][keys[0]]][tableData[i][keys[1]]].$$pos].children.push({
-                value: tableData[i][keys[2]]
+    <script>
+        //  function deleteS(item){
+        //    item
+        // }
+        function change(list) {
+            // var string1 = '[{month=2022-03, usageAmount=0.0}, {month=2022-02, usageAmount=0.0}, {month=2022-01, usageAmount=0.0}, {month=2021-12, usageAmount=0.0}, {month=2021-11, usageAmount=0.0}, {month=2021-10, usageAmount=0.0}, {month=2021-09, usageAmount=0.0}, {month=2021-08, usageAmount=0.0}, {month=2021-07, usageAmount=0.0}, {month=2021-06, usageAmount=0.0}, {month=2021-05, usageAmount=0.0}, {month=2021-04, usageAmount=0.0}]'
+            const arr1 = list.split('},')
+            const arr2 = arr1.map((item) => {
+                return item.replace(/\[|]|{|}/g, '')
             })
+            var arrMonth = []
+            var totalWater = []
+            arr2.forEach(item => {
+                item = item.trim()
+                item = item.split('=')
+                const arr3 = item[1].split(',')
+                arrMonth.push(arr3[0])
+                totalWater.push(item[2])
+            })
+            console.log(arrMonth)
+            console.log(totalWater)
         }
-        return res
-    }
-    var data = [{
-        "province": "浙江",
-        "city": "杭州",
-        "name": "西湖"
-    },{
-        "province": "四川",
-        "city": "成都",
-        "name": "锦里"
-    },{
-        "province": "江苏",
-        "city": "扬州",
-        "name": "高邮"
-    },{
-        "province": "湖北",
-        "city": "武汉",
-        "name": "鸭脖"
-    },]
-    var keys = ['province', 'city', 'name']
-    console.log(transObject(data, keys))
-</script>
+       
+
+    </script>
+</body>
+
 </html>
