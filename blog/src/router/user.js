@@ -7,10 +7,5 @@ const userRouter = (req, res) => {
             msg: '这是博客登陆接口'
         }
     }
-    if(method == 'POST' && path == '/api/blog/new') {
-        return {
-            msg: '这是新建博客接口'
-        }
-    }
 }
 module.exports = userRouter
