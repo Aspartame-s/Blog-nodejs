@@ -1,19 +1,33 @@
 const blogRouter = require('./src/router/blog')
 const userRouter = require('./src/router/user')
 const querystring = require('querystring')
+
+//用于处理post data
 const getPostData = (req) => {
-   const promise = new Promise((resolve, reject) => {
-    if(req.method !== 'POST') {
-        resolve({})
-        return
-    }
-    if(req.headers['content-type'] !== 'application/json') {
-        resolve({})
-        return
-    }
-    
-   })
-   return promise
+    const promise = new Promise((resolve, reject) => {
+        if (req.method !== 'POST') {
+            resolve({})
+            return
+        }
+        if (req.headers['content-type'] !== 'application/json') {
+            resolve({})
+            return
+        }
+        let postData = ''
+        req.on('data', chunk => { //post传递参数是持续性的，数据来就会持续触发这个函数
+            postData += chunk.toString()
+        })
+        req.on('end', () => { //这是数据传递结束
+            if(!postData) {
+                resolve({})
+                return
+            }
+            resolve(
+                JSON.parse(postData)
+            )
+        })
+    })
+    return promise
 }
 const serverHandle = (req, res) => {
     //设置返回格式 JSON
@@ -25,31 +39,29 @@ const serverHandle = (req, res) => {
 
     //获取query
     req.query = querystring.parse(url.split('?')[1])
-    // const qs = querystring.parse(url.split('?')[1])
-    // const qs = new URLSearchParams(url.split('?')[1]);
-    // const qq = qs.toString()
+    
 
     getPostData(req).then(postData => {
         req.body = postData
 
         const blogData = blogRouter(req, res)
-        if(blogData) {
+        if (blogData) {
             res.end(JSON.stringify(blogData))
             // res.end(JSON.stringify(req.query.author))
             return
         }
 
         const userData = userRouter(req, res)
-        if(userData) {
+        if (userData) {
             res.end(JSON.stringify(userData))
             return
         }
-        res.writeHead(404, {"Content-type": 'text/plain'})
+        res.writeHead(404, { "Content-type": 'text/plain' })
         res.write("404 Not Found\n")
         res.end()
     })
 
-    
+
 }
 console.log('OKs')
 module.exports = serverHandle
