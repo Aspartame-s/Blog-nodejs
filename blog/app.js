@@ -43,7 +43,6 @@ const serverHandle = (req, res) => {
 
     getPostData(req).then(postData => {
         req.body = postData
-
         const blogData = blogRouter(req, res)
         if (blogData) {
             res.end(JSON.stringify(blogData))
