@@ -1,20 +1,17 @@
+const {exec} = require('../db/mysql')
+
 const getList = (author, keyword) => {
-    if(author && keyword) {
-        return [
-            {
-                id: 1,
-                content: '内容A',
-                author: 'zhangsan',
-            },
-            {
-                id: 2,
-                content: '内容B',
-                author: 'lisi',
-            }
-        ]
-    }else {
-        return '参数错误'
-    }
+   let sql = `select * from blogs where 1=1 `
+   if(author) {
+       sql += `and author='${author}' `
+   }
+   if(keyword) {
+       sql += `and title like '%${keyword}%' `
+   }
+   sql += `order by createtime desc;`
+
+   //返回promise
+   return exec(sql)
 }
 //新建博客
 const createNewBlog = (blogData) => {

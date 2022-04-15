@@ -43,13 +43,15 @@ const serverHandle = (req, res) => {
 
     getPostData(req).then(postData => {
         req.body = postData
-        const blogData = blogRouter(req, res)
-        if (blogData) {
-            res.end(JSON.stringify(blogData))
-            // res.end(JSON.stringify(req.query.author))
+        const blogResult = blogRouter(req, res)
+        if(blogResult) {
+            blogResult.then(blogData => {
+                console.log(blogData)
+                    res.end(JSON.stringify(blogData))
+                    // res.end(JSON.stringify(req.query.author))
+            })
             return
         }
-
         const userData = userRouter(req, res)
         if (userData) {
             res.end(JSON.stringify(userData))
@@ -62,5 +64,4 @@ const serverHandle = (req, res) => {
 
 
 }
-console.log('OKs')
 module.exports = serverHandle
