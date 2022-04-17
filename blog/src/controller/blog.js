@@ -24,6 +24,7 @@ const getDetail = (id) => {
 
 //新建博客
 const createNewBlog = (blogData) => {
+    let sql = `insert into blogs (title, content, createtime, author) values ('${blogData.title}', '${blogData.content}', '${blogData.createtime}', '${blogData.author}')`
    return {
        id: 1
    }
