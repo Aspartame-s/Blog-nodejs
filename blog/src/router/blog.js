@@ -25,8 +25,12 @@ const blogRouter = (req, res) => {
     }
     if(method == 'POST' && path == '/api/blog/new') {
         const blogData = req.body
+        blogData.author = 'zhangsanq'
+        blogData.createtime = Date.now()
         const data = createNewBlog(blogData)
-        return data
+        return data.then(result => {
+            return new SuccessModel(result) 
+        })
     }
     if(method == 'POST' && path == '/api/blog/update') {
         const updateData = updateBlog(req.body)

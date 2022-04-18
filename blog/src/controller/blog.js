@@ -25,9 +25,11 @@ const getDetail = (id) => {
 //新建博客
 const createNewBlog = (blogData) => {
     let sql = `insert into blogs (title, content, createtime, author) values ('${blogData.title}', '${blogData.content}', '${blogData.createtime}', '${blogData.author}')`
-   return {
-       id: 1
-   }
+   return exec(sql).then(data => {
+       return {
+           id: data.insertId
+       }
+   })
 }
 //更新博客
 const updateBlog = (updateData) => {

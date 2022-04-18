@@ -46,7 +46,8 @@ const serverHandle = (req, res) => {
         const blogResult = blogRouter(req, res)
         if(blogResult) {
             blogResult.then(blogData => {
-                console.log(blogData)
+                console.log(blogData, 'blogData')
+                console.log(blogResult, 'blogResult')
                     res.end(JSON.stringify(blogData))
                     // res.end(JSON.stringify(req.query.author))
             })
