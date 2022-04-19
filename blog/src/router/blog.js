@@ -5,7 +5,7 @@ const blogRouter = (req, res) => {
     const url = req.url
     const path = url.split('?')[0]
     const id = req.query.id
-    if(method == 'GET' && path == '/api/blog/list') {
+    if (method == 'GET' && path == '/api/blog/list') {
         const author = req.query.author || ''
         const keyword = req.query.keyword || ''
         // const listData = getList(author, keyword)
@@ -16,29 +16,36 @@ const blogRouter = (req, res) => {
             return new SuccessModel(listData)
         })
     }
-    if(method == 'GET' && path == '/api/blog/detail') {
+    if (method == 'GET' && path == '/api/blog/detail') {
         // const id = req.query.id || ''
         const result = getDetail(id)
         return result.then(blogDetail => {
             return new SuccessModel(blogDetail)
         })
     }
-    if(method == 'POST' && path == '/api/blog/new') {
+    if (method == 'POST' && path == '/api/blog/new') {
         const blogData = req.body
-        blogData.author = 'zhangsanq'
+        blogData.author = 'zhangsanq' // 假数据 后期登陆接口做完替换
         blogData.createtime = Date.now()
         const data = createNewBlog(blogData)
         return data.then(result => {
-            return new SuccessModel(result) 
+            return new SuccessModel(result)
         })
     }
-    if(method == 'POST' && path == '/api/blog/update') {
-        const updateData = updateBlog(req.body)
-        return new SuccessModel(updateData)
+    if (method == 'POST' && path == '/api/blog/update') {
+        const updateData = updateBlog(id, req.body)
+        return updateData.then(result => {
+            if (result) {
+                return new SuccessModel(result)
+            } else {
+                return new ErrorModel('更新博客失败')
+            }
+        })
     }
-    if(method == 'POST' && path == '/api/blog/delete') {
+    if (method == 'POST' && path == '/api/blog/delete') {
         const result = delBlog(id)
-        if(result) {
+
+        if (result) {
             return new SuccessModel()
         }
         return new ErrorModel()

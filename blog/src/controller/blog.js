@@ -32,15 +32,27 @@ const createNewBlog = (blogData) => {
    })
 }
 //更新博客
-const updateBlog = (updateData) => {
-    return {
-        updateId: 2
-    }
+const updateBlog = (id,updateData) => {
+    const newTitle = updateData.title
+    const newContent = updateData.content
+    let sql = `update blogs set title='${newTitle}', content='${newContent}' where id=${id}`
+    
+    return exec(sql).then(result => {
+        if(result.affectedRows > 0) {
+            return true
+        }
+        return false
+    })
 }
 //删除博客
-const delBlog = (id) => {
-    console.log(id)
-    return true
+const delBlog = (id, author) => {
+    const sql = `delete from blogs where id=${id} and author='${author}'`
+    return exec(sql).then(result => {
+        if(result.affectedRows > 0) {
+            return true
+        }
+        return false
+    })
 }
 
 module.exports = {
