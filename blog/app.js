@@ -53,9 +53,11 @@ const serverHandle = (req, res) => {
             })
             return
         }
-        const userData = userRouter(req, res)
-        if (userData) {
-            res.end(JSON.stringify(userData))
+        const userResult = userRouter(req, res)
+        if (userResult) {
+            userResult.then(userData => {
+                res.end(JSON.stringify(userData))
+            })
             return
         }
         res.writeHead(404, { "Content-type": 'text/plain' })

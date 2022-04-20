@@ -1,15 +1,12 @@
-const loginCheck = (username, password) => {
-    let sql = `select * from blogs where 1=1 `
-   if(author) {
-       sql += `and author='${author}' `
-   }
-   if(keyword) {
-       sql += `and title like '%${keyword}%' `
-   }
-   sql += `order by createtime desc;`
+const { exec } = require('../db/mysql')
 
-   //返回promise
-   return exec(sql)
+const loginCheck = (username, password) => {
+    let sql = `select username, realname from users where username='${username}' and password='${password}'`
+
+    return exec(sql).then(rows => {
+        return rows[0] || {}
+    })
+    
 }
 
 module.exports = {
