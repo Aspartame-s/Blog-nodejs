@@ -25,7 +25,7 @@ const blogRouter = (req, res) => {
     }
     if (method == 'POST' && path == '/api/blog/new') {
         const blogData = req.body
-        blogData.author = 'zhangsanq' // 假数据 后期登陆接口做完替换
+        blogData.author = 'zhangsan' // 假数据 后期登陆接口做完替换
         blogData.createtime = Date.now()
         const data = createNewBlog(blogData)
         return data.then(result => {
@@ -43,12 +43,16 @@ const blogRouter = (req, res) => {
         })
     }
     if (method == 'POST' && path == '/api/blog/delete') {
-        const result = delBlog(id)
-
-        if (result) {
-            return new SuccessModel()
-        }
-        return new ErrorModel()
+        const author = 'zhangsanq'
+        const delData = delBlog(id, author)
+        return delData.then(result => {
+            console.log(result)
+            if (result) {
+                return new SuccessModel()
+            } else {
+                return new ErrorModel('删除博客失败')
+            }
+        })
     }
 }
 module.exports = blogRouter
