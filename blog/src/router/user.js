@@ -9,7 +9,7 @@ const userRouter = (req, res) => {
         const result = loginCheck(username, password)
         return result.then(data => {
             if(data.username) {
-                return new SuccessModel(data)
+                return new SuccessModel()
             }
             return new ErrorModel('登陆失败')
         })
