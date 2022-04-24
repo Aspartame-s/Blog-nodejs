@@ -18,7 +18,7 @@ const getPostData = (req) => {
             postData += chunk.toString()
         })
         req.on('end', () => { //这是数据传递结束
-            if(!postData) {
+            if (!postData) {
                 resolve({})
                 return
             }
@@ -39,17 +39,31 @@ const serverHandle = (req, res) => {
 
     //获取query
     req.query = querystring.parse(url.split('?')[1])
-    
+
+    //解析cookie
+    req.cookie = {}
+    const cookie = req.headers.cookie || ''
+    cookie.split(';').forEach(item => {
+        // console.log(item)
+        if (!item) {
+            return
+        }
+        const arr = item.split('=')
+        const key = res[0]
+        const value = res[1]
+        req.cookie[key] = value
+    })
+
 
     getPostData(req).then(postData => {
         req.body = postData
         const blogResult = blogRouter(req, res)
-        if(blogResult) {
+        if (blogResult) {
             blogResult.then(blogData => {
                 // console.log(blogData, 'blogData')
                 // console.log(blogResult, 'blogResult')
-                    res.end(JSON.stringify(blogData))
-                    // res.end(JSON.stringify(req.query.author))
+                res.end(JSON.stringify(blogData))
+                // res.end(JSON.stringify(req.query.author))
             })
             return
         }
