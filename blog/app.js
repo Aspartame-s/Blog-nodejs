@@ -44,16 +44,15 @@ const serverHandle = (req, res) => {
     req.cookie = {}
     const cookie = req.headers.cookie || ''
     cookie.split(';').forEach(item => {
-        // console.log(item)
         if (!item) {
             return
         }
         const arr = item.split('=')
-        const key = res[0]
-        const value = res[1]
+        const key = arr[0]
+        const value = arr[1]
         req.cookie[key] = value
     })
-
+    // console.log(req.headers.cookie)
 
     getPostData(req).then(postData => {
         req.body = postData

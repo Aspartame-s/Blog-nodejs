@@ -4,11 +4,13 @@ const userRouter = (req, res) => {
     const method = req.method
     const url = req.url
     const path = url.split('?')[0]
-    if(method == 'POST' && path == '/api/user/login') {
-        const {username, password} = req.body
+    if(method == 'GET' && path == '/api/user/login') {
+        // const {username, password} = req.body
+        const {username, password} = req.query
         const result = login(username, password)
         return result.then(data => {
             if(data.username) {
+                res.setHeader('Set-Cookie', `username=${data.username}`)
                 return new SuccessModel()
             }
             return new ErrorModel('登陆失败')
