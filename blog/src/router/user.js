@@ -10,7 +10,7 @@ const userRouter = (req, res) => {
         const result = login(username, password)
         return result.then(data => {
             if(data.username) {
-                res.setHeader('Set-Cookie', `username=${data.username}`)
+                res.setHeader('Set-Cookie', `username=${data.username}; path=/; httpOnly;`)
                 return new SuccessModel()
             }
             return new ErrorModel('登陆失败')
