@@ -48,11 +48,12 @@ const serverHandle = (req, res) => {
             return
         }
         const arr = item.split('=')
-        const key = arr[0]
-        const value = arr[1]
+        const key = arr[0].trim()
+        const value = arr[1].trim()
+        // console.log(key, value)
         req.cookie[key] = value
     })
-    // console.log(req.headers.cookie)
+    console.log(req.cookie)
 
     getPostData(req).then(postData => {
         req.body = postData
