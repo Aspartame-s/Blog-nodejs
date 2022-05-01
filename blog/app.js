@@ -42,7 +42,8 @@ const serverHandle = (req, res) => {
 
     //解析cookie
     req.cookie = {}
-    const cookie = req.headers.cookie || ''
+    const cookie = req.headers.cookie || '' // k1=v1;k2=v2;k3=v3
+    console.log(req.headers)
     cookie.split(';').forEach(item => {
         if (!item) {
             return
@@ -53,7 +54,16 @@ const serverHandle = (req, res) => {
         // console.log(key, value)
         req.cookie[key] = value
     })
-    console.log(req.cookie)
+    // console.log(req.cookie)
+
+    //解析session
+    const userId = req.cookie.userid
+    if(userId) {
+        if(!SESSION_DATA[userId]) {
+            SESSION_DATA[userId] = {}
+        }
+        req.session = SESSION_DATA[userId]
+    }
 
     getPostData(req).then(postData => {
         req.body = postData

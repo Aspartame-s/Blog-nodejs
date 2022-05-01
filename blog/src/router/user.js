@@ -18,7 +18,7 @@ const userRouter = (req, res) => {
         const result = login(username, password)
         return result.then(data => {
             if(data.username) {
-                res.setHeader('Set-Cookie', `username=${data.username}; path=/; httpOnly; expires=${getCookieExpires()}`)
+                res.setHeader('Set-Cookie', `username=${data.username}; path=/; httpOnly; expires=${getCookieExpires()}`) //写入cookie path=/ 在访问任何路由 都会带有这个cookie
                 return new SuccessModel()
             }
             return new ErrorModel('登陆失败')
