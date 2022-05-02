@@ -62,8 +62,12 @@ const serverHandle = (req, res) => {
         if(!SESSION_DATA[userId]) {
             SESSION_DATA[userId] = {}
         }
-        req.session = SESSION_DATA[userId]
+    }else {
+        userId = `${Date.now()}_${Math.random()}`
+        SESSION_DATA[userId] = {}
     }
+    req.session = SESSION_DATA[userId]
+
 
     getPostData(req).then(postData => {
         req.body = postData
