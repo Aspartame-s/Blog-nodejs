@@ -1,8 +1,0 @@
-const Modbus = require('jsmodbus')
-const net = require('net')
-const socket = new net.Socket()
-console.log('----------------------')
-// console.log(socket)
-// console.log(Modbus)
-const client = new Modbus.client.TCP(socket, 1)
-  console.log(client)
