@@ -2,6 +2,8 @@ const blogRouter = require('./src/router/blog')
 const userRouter = require('./src/router/user')
 const querystring = require('querystring')
 
+const SESSION_DATA = {}
+
 //用于处理post data
 const getPostData = (req) => {
     const promise = new Promise((resolve, reject) => {
@@ -54,21 +56,29 @@ const serverHandle = (req, res) => {
         // console.log(key, value)
         req.cookie[key] = value
     })
-    // console.log(req.cookie)
+    console.log(req)
 
     //解析session
-    const SESSION_DATA = {}
-    let userId = req.cookie.userid
-    console.log(SESSION_DATA)
-    if(userId) {
-        if(!SESSION_DATA[userId]) {
-            SESSION_DATA[userId] = {}
+    let userId = req.cookie.userid //
+    if(userId) { //如果userId存在说已经通过接口传递了用户名跟密码，因为第一次请求接口此时服务器还只是将userId传递给客户端，此时的req.header里面的cookie还不存在userId
+        if(SESSION_DATA[userId]) {
+            req.session = SESSION_DATA[userId]
+        }else {
+
         }
-    }else {
-        userId = `${Date.now()}_${Math.random()}`
-        SESSION_DATA[userId] = {}
     }
-    req.session = SESSION_DATA[userId]
+    
+    // if(userId) {
+    //     if(!SESSION_DATA[userId]) {
+    //         SESSION_DATA[userId] = {}
+    //     }
+    // }else {
+    //     userId = `${Date.now()}_${Math.random()}`
+    //     SESSION_DATA[userId] = {}
+    // }
+    // req.session = SESSION_DATA[userId]
+    // console.log(SESSION_DATA)
+    // console.log(req.session)
 
 
     getPostData(req).then(postData => {

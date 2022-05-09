@@ -7,8 +7,44 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+<style>
+    html,
+    body {
+        margin: 0;
+    }
+
+    .container {
+        display: flex;
+        width: 100%;
+    }
+
+    .c1 {
+        background-color: green;
+        flex: 1 1 auto;
+        height: 10px;
+    }
+
+    .c2 {
+        background-color: red;
+        flex: 1 1 auto;
+        height: 10px;
+
+    }
+
+    .c3 {
+        background-color: wheat;
+        flex: 1 1 auto;
+        height: 10px;
+
+    }
+</style>
 
 <body>
+    <div class="container">
+        <div class="c1">啦</div>
+        <div class="c2">啦</div>
+        <div class="c3">啦</div>
+    </div>
     <script>
         //  function deleteS(item){
         //    item
@@ -31,8 +67,15 @@
             console.log(arrMonth)
             console.log(totalWater)
         }
-       
-
+        const obj = {
+            name: 'zhangsan',
+            pass: '123'
+        }
+        obj.name = 'lisi'
+        console.log(obj)
+        var s1 = 1;
+        var s2 = 1;
+        console.log(s1 === s2)//true
     </script>
 </body>
 
